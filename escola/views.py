@@ -7,4 +7,4 @@ def estudantes(request):
             'id': '1',
             'nome': 'alysson',
         }
-        return JsonResponse(estudante)
+        return JsonResponse(estudante) 

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from escola.models import Estudante, Curso
+from escola.models import Estudante, Curso, Matricula
 
 # Os serializers são utilizados para converter os models que são dados complexos em JSON
 
@@ -12,3 +12,8 @@ class CursoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Curso
         fields = '__all__' #utilizando todos os campos de Curso
+
+class MatriculaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Matricula
+        exclude = []

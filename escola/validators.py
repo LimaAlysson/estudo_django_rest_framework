@@ -7,7 +7,7 @@ def cpf_invalido(numero_cpf):
     return not cpf_valido
 
 def nome_invalido(nome):
-    return not nome.isalpha()
+    return not nome.replace(" ", "").isalpha()
 
 def celular_invalido(celular):
     # 88 99999-9999

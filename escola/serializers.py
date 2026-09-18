@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from escola.models import Estudante, Curso, Matricula
+from escola.validators import cpf_invalido, nome_invalido, celular_invalido
 
 # Os serializers são utilizados para converter os models que são dados complexos em JSON
 
@@ -8,27 +9,12 @@ class EstudanteSerializer(serializers.ModelSerializer):
         model = Estudante
         fields = ['id', 'nome', 'email', 'cpf', 'data_nascimento', 'celular']
 
-    def validate_cpf(self, cpf):
-        if len(cpf) != 11:
-            raise serializers.ValidationError('O CPF deve ter 11 digitos!')
-        return cpf
-
-    def validate_nome(self, nome):
-        if not nome.isalpha():
-            raise serializers.ValidationError('O nome deve conter apenas letras!')
-        return nome
-
-    def validate_celular(self, celular):
-        if len(celular) != 13:
-            raise serializers.ValidationError('O celular deve ter 13 dígitos!')
-        return celular
-
     def validate(self, dados):
-        if len(dados['cpf']) != 11:
+        if cpf_invalido(dados['cpf']):
             raise serializers.ValidationError({'cpf':'O CPF deve ter 11 digitos!'})
-        if not dados['nome'].isalpha():
+        if nome_invalido(dados['nome']):
             raise serializers.ValidationError({'nome':'O nome deve conter apenas letras!'})
-        if len(dados['celular']) != 13:
+        if celular_invalido(dados['celular']):
             raise serializers.ValidationError({'celular':'O celular deve ter 13 dígitos!'})
         return dados
 
